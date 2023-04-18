@@ -1,14 +1,16 @@
-import { useState } from 'react'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import Login from './pages/Login'
 
 function App () {
-  const [count, setCount] = useState(0)
   return (
+    <BrowserRouter>
+      <Routes>
+        <Route path='/' element={<h1>Bienvenido a Talent Place</h1>} />
+        <Route path='/login' element={<Login />} />
+        <Route path='*' element={<h1>Oops 404 page not found!</h1>} />
+      </Routes>
+    </BrowserRouter>
 
-    <div>
-      <h1 className='bg-red-500'>Talent Place</h1>
-      <p>Clicks: {count}</p>
-      <button className='p-1 bg-red-600 rounded-xl' onClick={() => setCount(count + 1)}>Contador</button>
-    </div>
   )
 }
 
