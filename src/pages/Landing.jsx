@@ -2,13 +2,13 @@ import { useState } from 'react'
 import { NavLink } from 'react-router-dom'
 
 function Landing () {
-  const [count, setCount] = useState(0)
   return (
-    <div>
-      <h1>Bienvenido a Talent Place</h1>
-      <p>Clicks: {count}</p>
-      <button className='p-1 bg-red-600 rounded-xl' onClick={() => setCount(count + 1)}>Contador</button>
-      <NavLink to='/register'>Registrarse nav link</NavLink>
+    <div className='w-screen h-screen  flex flex-col justify-center items-center gap-5'>
+      <h1 className='text-7xl text-red-500 font-bold'>Bienvenido a Talent Place</h1>
+      <div className='flex gap-x-4 text-white font-bold'>
+        <NavLink className='p-4 bg-red-500 rounded-xl hover:bg-yellow-500' to='/login'>Iniciar sesión</NavLink>
+        <NavLink className='p-4 bg-red-500 rounded-xl hover:bg-yellow-500' to='/signup'>Registrarse</NavLink>
+      </div>
     </div>
   )
 }
