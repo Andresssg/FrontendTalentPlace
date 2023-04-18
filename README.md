@@ -1,6 +1,6 @@
-#Talent place Frontend Project
+# Talent place Frontend Project
 
-#Extensions
+# Extensions
 
 - Tailwind CSS Intellisense
 - ESLint
