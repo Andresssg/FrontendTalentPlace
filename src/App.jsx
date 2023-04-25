@@ -11,6 +11,8 @@ function App () {
         <Route path='/' element={<Landing />} />
         <Route path='/login' element={<Login />} />
         <Route path='/signup' element={<Register />} />
+        {/* TODO: Protected routes */}
+        <Route path='/profile' element={<h1>Profile</h1>} />
         <Route path='*' element={<NotFound />} />
       </Routes>
     </BrowserRouter>
