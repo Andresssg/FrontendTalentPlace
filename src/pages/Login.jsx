@@ -1,11 +1,16 @@
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
+import useAuth from '../hooks/useAuth'
 
 function Login () {
-  const [password, setPassword] = useState('')
-  const [email, setEmail] = useState('')
+  const { setAuth } = useAuth()
 
   const navigate = useNavigate()
+  const location = useLocation()
+  const from = location.state?.from?.pathname || '/'
+
+  const [password, setPassword] = useState('')
+  const [email, setEmail] = useState('')
 
   const checkFields = () => {
     if (!email && !password) { return window.alert('Campos incompletos') }
@@ -14,14 +19,23 @@ function Login () {
   const handleSubmit = async (e) => {
     e.preventDefault()
     checkFields()
-    const form = new FormData(e.target)
+    /* const form = new FormData(e.target)
     const res = await fetch('/login.py', {
       method: 'POST',
       body: form
     })
     const data = await res.text()
-    console.log(data)
-    return navigate('/profile')
+    console.log(data) */
+    const data = {
+      id: 1,
+      username: 'guevaraandres',
+      name: 'Andres',
+      role: ['user']
+    }
+    // Response from back
+    // pass {user,pwd,roles,accesstoken}
+    setAuth(data)
+    navigate(from, { replace: true })
   }
 
   const handlePassword = (e) => {
