@@ -11,6 +11,7 @@ import MaskImg from '../assets/mask.png'
 import Testimonials from '../components/Testimonials'
 import Banner from '../components/Banner'
 import Footer from '../components/Footer'
+import RegisterCard from '../components/ResgisterCard'
 
 function Home () {
   const keywordsInfo = [
@@ -35,7 +36,7 @@ function Home () {
   ]
 
   return (
-    <article className='flex flex-col'>
+    <article className='flex flex-col justify-center items-center'>
       <Banner />
       <section className='flex justify-evenly items-center flex-wrap py-16'>
         {keywordsInfo.map((element, i) => {
@@ -43,9 +44,7 @@ function Home () {
           return <KeywordCard key={i} icon={icon} keyword={keyword} text={text} last={i === keywordsInfo.length - 1} />
         })}
       </section>
-      <section>
-        register cards
-      </section>
+      <RegisterCard />
       <section className='flex justify-evenly items-center flex-wrap py-16'>
         {categories.map((element, i) => {
           const { icon, category, color } = element

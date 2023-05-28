@@ -9,7 +9,7 @@ import logoEfecty from '../assets/logo-efecty.png'
 function Footer () {
   const phone = '+57 3046595839'
   return (
-    <section className='flex flex-col justify-center items-center bg-gray-500 py-5 text-white font-medium gap-5'>
+    <section className='flex flex-col justify-center items-center bg-gray-500 py-5 text-white font-medium gap-5 w-full'>
       <div className='flex w-full justify-evenly '>
         <div className='flex flex-col justify-center items-center gap-2'>
           <img src={logoBlanco} alt='Logo talentplace' />
