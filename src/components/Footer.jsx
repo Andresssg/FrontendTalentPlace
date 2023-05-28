@@ -15,8 +15,12 @@ function Footer () {
           <img src={logoBlanco} alt='Logo talentplace' />
           <h3 className='text-xl'>{phone}</h3>
           <div className='flex justify-center gap-5 w-full'>
-            <img src={logoTiktok} alt='logo tiktok' />
-            <img src={logoInstagram} alt='logo instagram' />
+            <a href='https://www.tiktok.com/@talentplac3?_t=8XTVjb3wGLl&_r=1'>
+              <img src={logoTiktok} alt='logo tiktok' />
+            </a>
+            <a href='https://www.instagram.com/talentplac3/'>
+              <img src={logoInstagram} alt='logo instagram' />
+            </a>
           </div>
         </div>
         <ul className='flex flex-col gap-6'>
