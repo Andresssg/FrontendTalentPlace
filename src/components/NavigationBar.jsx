@@ -6,7 +6,7 @@ import LogoBar from '../assets/logo_completo.png'
 function NavigationBar () {
   const { auth, logout } = useAuth()
   return (
-    <ul className={`flex w-full ${auth ? 'justify-between' : 'justify-evenly'} items-center p-3 px-10 bg-red-500`}>
+    <ul className={`flex w-full ${auth ? 'justify-between' : 'justify-evenly'} items-center p-3 px-10 bg-red-500 h-20`}>
       <li className='hover:text-white'>
         <Link to='/'>
           <img className='w-20' src={LogoBar} />
