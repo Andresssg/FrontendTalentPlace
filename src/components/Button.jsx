@@ -1,8 +1,8 @@
-function Button ({ text, action }) {
+function Button ({ text, action, className }) {
   const defaultClick = () => {
     window.alert('click')
   }
-  return <button onClick={action || defaultClick}>{text}</button>
+  return <button className={className} onClick={action || defaultClick}>{text}</button>
 }
 
 export default Button
