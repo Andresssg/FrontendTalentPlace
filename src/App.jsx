@@ -8,26 +8,9 @@ import NavigationBar from './components/NavigationBar'
 import ProtectedRoute from './components/ProtectedRoute'
 import useAuth from './hooks/useAuth'
 import Profile from './pages/Profile'
-import { UserContextProvider } from './contexts/UserContext'
-
-const ROLES = {
-  OFERTANTE: 'ofertante',
-  ADMIN: 'admin',
-  SOLICITANTE: 'solicitante'
-}
 
 function App () {
-  /* const { setAuth, auth } = useAuth()
-  const login = () => {
-    setAuth({
-      id: 1,
-      username: 'guevaraandres',
-      name: 'Andres',
-      role: ['user']
-    })
-  } */
-
-  // const logout = () => setAuth(null)
+  const { ROLES } = useAuth()
   return (
     <BrowserRouter>
       <NavigationBar />
@@ -43,7 +26,7 @@ function App () {
         <Route element={<ProtectedRoute />}>
           <Route path='/profile/:username' element={<Profile />} />
         </Route>
-        <Route element={<ProtectedRoute allowedRoles={[ROLES.OFERTANTE]} />}>
+        <Route element={<ProtectedRoute allowedRoles={[ROLES[1]]} />}>
           <Route path='/dashboard' element={<Dashboard />} />
         </Route>
         <Route path='*' element={<NotFound />} />
