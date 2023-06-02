@@ -1,10 +1,12 @@
 import { useNavigate } from 'react-router-dom'
 import hat from '../assets/hat.svg'
 import { useState } from 'react'
+import useAuth from '../hooks/useAuth'
 
 function Register () {
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
+  const { BASE_URL } = useAuth()
 
   const navigate = useNavigate()
 
@@ -17,12 +19,13 @@ function Register () {
       return window.alert('Las contraseñas deben coincidir, intente nuevamente')
     }
     const form = new FormData(e.target)
-    const res = await fetch('/register.py', {
+    const res = await fetch(`${BASE_URL}/user/register`, {
       method: 'POST',
       body: form
     })
-    const data = await res.text()
-    console.log(data)
+    const data = await res?.json()
+    if (res.status !== 201) { return window.alert(JSON.stringify(data)) }
+    window.alert(`Usuario ${data.username} creado exitosamente.`)
     return navigate('/')
   }
 
@@ -42,23 +45,24 @@ function Register () {
         <p className='text-xl lg:text-3xl'>Si tienes una cuenta <span className='text-red-500'>Inicia sesión</span></p>
       </section>
       <img src={hat} alt='hat image' className='w-2/3 lg:w-1/3' />
-      <form method='post' onSubmit={handleSubmit} className='flex flex-col justify-evenly w-[35rem] h-[48rem] p-5 bg-red-600 rounded-xl'>
+      <form method='post' onSubmit={handleSubmit} className='flex flex-col justify-evenly w-[35rem] h-[52rem] p-5 bg-red-600 rounded-xl'>
         <h2 className='text-center text-3xl font-bold'>Registrate</h2>
-        <input name='input-name' className='h-14 p-3 rounded-2xl' type='text' placeholder='Nombre(s)' required />
-        <input name='input-lastname' className='h-14 p-3 rounded-2xl' type='text' placeholder='Apellido(s)' required />
+        <input name='name' className='h-14 p-3 rounded-2xl' type='text' placeholder='Nombre(s)' required />
+        <input name='lastname' className='h-14 p-3 rounded-2xl' type='text' placeholder='Apellido(s)' required />
         <label className='text-xl font-bold' htmlFor='birthdate'>Fecha de nacimiento</label>
-        <input name='input-birthdate' className='h-14 p-3 rounded-2xl' type='date' max={minDate.toISOString().split('T')[0]} id='birthdate' required />
-        <input name='input-phone' className='h-14 p-3 rounded-2xl' type='tel' placeholder='Telefono' required />
+        <input name='birthdate' className='h-14 p-3 rounded-2xl' type='date' max={minDate.toISOString().split('T')[0]} id='birthdate' required />
+        <input name='phone' className='h-14 p-3 rounded-2xl' type='tel' placeholder='Telefono' required />
         <p className='text-xl font-bold'>Seleccione su genero:</p>
         <div className='flex justify-center gap-x-4 text-xl'>
           <label htmlFor='radio-female'>Femenino</label>
-          <input type='radio' name='input-gender' id='radio-female' value='female' defaultChecked />
+          <input type='radio' name='gender' id='radio-female' value='female' defaultChecked />
           <label htmlFor='radio-male'>Masculino</label>
-          <input type='radio' name='input-gender' id='radio-male' value='male' />
+          <input type='radio' name='gender' id='radio-male' value='male' />
         </div>
-        <input name='input-email' className='h-14 p-3 rounded-2xl' type='email' placeholder='Correo electronico' required />
+        <input name='username' className='h-14 p-3 rounded-2xl' type='text' placeholder='Nombre de usuario' required />
+        <input name='email' className='h-14 p-3 rounded-2xl' type='email' placeholder='Correo electronico' required />
         <input
-          name='input-password' className='h-14 p-3 rounded-2xl'
+          name='password' className='h-14 p-3 rounded-2xl'
           type='password' placeholder='Contraseña' required
           onChange={handlePassword}
         />
@@ -70,9 +74,9 @@ function Register () {
         {password === confirmPassword
           ? <></>
           : <p className='text-xl text-yellow-300 self-center p-2'>Las contraseñas no coinciden</p>}
-        <select name='input-rol' className='h-14 p-3 rounded-2xl'>
-          <option value='ofertante'>Ofertante</option>
-          <option value='solicitante'>Solicitante</option>
+        <select name='rol' className='h-14 p-3 rounded-2xl'>
+          <option value='1'>Ofertante</option>
+          <option value='2'>Solicitante</option>
         </select>
         <input className='h-12 p-3 bg-yellow-300 rounded-2xl cursor-pointer' type='submit' value='Registrarse' />
       </form>

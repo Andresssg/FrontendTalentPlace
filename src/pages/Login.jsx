@@ -3,7 +3,7 @@ import { useLocation, useNavigate } from 'react-router-dom'
 import useAuth from '../hooks/useAuth'
 
 function Login () {
-  const { setAuth } = useAuth()
+  const { login, BASE_URL } = useAuth()
 
   const navigate = useNavigate()
   const location = useLocation()
@@ -19,22 +19,17 @@ function Login () {
   const handleSubmit = async (e) => {
     e.preventDefault()
     checkFields()
-    /* const form = new FormData(e.target)
-    const res = await fetch('/login.py', {
+    const form = new FormData()
+    form.append('email', email)
+    form.append('password', password)
+
+    const res = await fetch(`${BASE_URL}/user/login`, {
       method: 'POST',
       body: form
     })
-    const data = await res.text()
-    console.log(data) */
-    const data = {
-      id: 1,
-      username: 'guevaraandres',
-      name: 'Andres',
-      role: ['user']
-    }
-    // Response from back
-    // pass {user,pwd,roles,accesstoken}
-    setAuth(data)
+    const data = await res?.json()
+    if (res.status !== 200) { return window.alert(data.message) }
+    login(data)
     navigate(from, { replace: true })
   }
 
