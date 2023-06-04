@@ -130,7 +130,7 @@ function Profile () {
             </>}
           </div>
         </aside>}
-      <section className={`flex flex-col justify-center items-center w-full gap-y-6 md:flex-row md:justify-evenly ${isOpen && 'blur-sm'} lg:blur-none`}>
+      <section className={`flex flex-col flex-wrap justify-center items-center w-full gap-y-6 md:flex-row md:justify-evenly ${isOpen && 'blur-sm'} lg:blur-none`}>
         {show === 'services' &&
           (services.length
             ? services.map((service, i) => <Service key={`service-${i}`} service={service} setShow={setShow} setSelectedService={setSelectedService} />)
