@@ -11,7 +11,7 @@ function OfferedServices () {
   }, [])
 
   const getServices = async () => {
-    const res = await fetch(`${BASE_URL}/services`, {
+    const res = await fetch(`${BASE_URL}/service/getall`, {
       method: 'GET'
     })
     const data = await res?.json()
@@ -25,9 +25,11 @@ function OfferedServices () {
         <Button key='pill-all' className='p-2 rounded-full bg-slate-200 text-center hover:text-white hover:bg-red-400' text='TODOS' />
         {categories.map(category => <Button key={`pill-${category}`} className='p-2 rounded-full bg-slate-200 text-center hover:text-white hover:bg-red-400' text={category} />)}
       </div>
-      {services.length === 0
-        ? <h2>Aún no tenemos servicios, muy pronto tendremos más para ofrecerte!</h2>
-        : services.map((service, i) => <ServiceCard key={`servicecard-${i}`} service={service} />)}
+      <div className='flex flex-col justify-evenly items-center p-5 font-medium gap-y-5 md:flex-row md:flex-wrap md:justify-evenly md:w-full md:items-center'>
+        {services.length === 0
+          ? <h2>Aún no tenemos servicios, muy pronto tendremos más para ofrecerte!</h2>
+          : services.map((service, i) => <ServiceCard key={`servicecard-${i}`} service={service} />)}
+      </div>
     </section>
   )
 }
