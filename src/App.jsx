@@ -8,6 +8,7 @@ import NavigationBar from './components/NavigationBar'
 import ProtectedRoute from './components/ProtectedRoute'
 import useAuth from './hooks/useAuth'
 import Profile from './pages/Profile'
+import OfferedServices from './pages/OfferedServices'
 
 function App () {
   const { ROLES } = useAuth()
@@ -20,6 +21,7 @@ function App () {
         <Route path='/home' element={<Home />} />
         <Route path='/login' element={<Login />} />
         <Route path='/signup' element={<Register />} />
+        <Route path='/offered' element={<OfferedServices />} />
         {/* <Route path='/publicaciones/:id' element={<h1>Post</h1>} /> */}
         {/* <Route path='/profile/:username' element={<h1>Profile</h1>} /> */}
         {/* TODO: Protected routes */}

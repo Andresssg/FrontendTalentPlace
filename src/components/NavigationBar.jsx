@@ -18,6 +18,9 @@ function NavigationBar () {
           type='text' placeholder='Busca lo que necesites. Ej. diseñadores, manualidades '
         />
       </li> */}
+      <li className='p-2 rounded-xl hover:bg-white hover:text-black'>
+        <Link to='/offered'>Ofrecidos</Link>
+      </li>
       {!auth &&
         <li className='p-2 rounded-xl hover:bg-white hover:text-black'>
           <Link to='/signup'>Signup</Link>
