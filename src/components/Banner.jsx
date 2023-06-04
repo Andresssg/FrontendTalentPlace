@@ -10,7 +10,7 @@ function Banner () {
   ]
   const [currentIndex] = useSlider(3500, images)
   return (
-    <section className='flex justify-left items-center h-200px md:h-[500px] lg:h-[calc(100vh-80px)] bg-purple-500 relative w-full'>
+    <section className='flex justify-left items-center h-200px md:h-[500px] lg:h-[calc(100vh-80px)] relative w-full'>
       <img className='w-full h-full absolute' src={images[currentIndex]} alt='Image banner' />
       <div className='p-20 relative font-light bg-red-500 w-full text-3xl md:text-5xl bg-opacity-60 text-white'>
         <h2>De estudiantes para estudiantes</h2>

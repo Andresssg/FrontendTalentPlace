@@ -38,8 +38,11 @@ function ServiceCard ({ service }) {
       <div className='flex flex-col bg-white font-medium text-justify rounded-xl'>
         <h3 className='w-1/2 text-center text-white bg-red-500 rounded-br-xl rounded-tl-xl p-2 shadow-inner-up'>{name}</h3>
         <img src={evidence_img} alt='Imagen de evidencia del servicio' className='w-full h-60 object-contain p-2' />
-        <p className='p-2 '>Descripción: {description}</p>
-        <p className='p-2 '>Precio: {price}</p>
+        <details className='p-2 border-2'>
+          <summary>Click para ver la información del servicio</summary>
+          <p className='p-2 '>Descripción: {description}</p>
+          <p className='p-2 '>Precio: {price}</p>
+        </details>
         {evidence_video && <a href={evidence_video} target='_blank' rel='noreferrer' className='p-2 text-justify hover:text-red-500'>Video de referencia</a>}
         <div className='flex justify-between items-center'>
           <div className='flex justify-evenly items-center w-full p-2'>

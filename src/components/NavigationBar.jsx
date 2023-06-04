@@ -12,12 +12,6 @@ function NavigationBar () {
           <img className='w-28' src={LogoBar} />
         </Link>
       </li>
-      {/* <li>
-        <input
-          className='md:w-[450px] p-3 rounded-xl border border-red-500 focus:outline-none focus:border-yellow-500'
-          type='text' placeholder='Busca lo que necesites. Ej. diseñadores, manualidades '
-        />
-      </li> */}
       <li className='p-2 rounded-xl hover:bg-white hover:text-black'>
         <Link to='/offered'>Ofrecidos</Link>
       </li>

@@ -5,7 +5,6 @@ import Register from './pages/Register'
 import Home from './pages/Home'
 import NavigationBar from './components/NavigationBar'
 import ProtectedRoute from './components/ProtectedRoute'
-import useAuth from './hooks/useAuth'
 import Profile from './pages/Profile'
 import OfferedServices from './pages/OfferedServices'
 
