@@ -5,6 +5,7 @@ import logoPayvalida from '../assets/logo-payvalida.png'
 import logoNequi from '../assets/logo-nequi.png'
 import logoDaviplata from '../assets/logo-daviplata.png'
 import logoEfecty from '../assets/logo-efecty.png'
+import { Link } from 'react-router-dom'
 
 function Footer () {
   const phone = '+57 3046595839'
@@ -25,8 +26,7 @@ function Footer () {
         </div>
         <ul className='flex flex-col gap-6'>
           <h5 className='text-xl'>Menú</h5>
-          <li className='cursor-pointer hover:text-red-500'>Ofertados</li>
-          <li className='cursor-pointer hover:text-red-500'>Solicitados</li>
+          <Link to='/offered' className='cursor-pointer hover:text-red-500'>Ofertados</Link>
         </ul>
         <ul className='flex flex-col gap-6'>
           <h5 className='text-xl'>Info</h5>
