@@ -4,17 +4,32 @@ import Edit from '../icons/Edit'
 import Trash from '../icons/Trash'
 
 function Service ({ service, setShow, setSelectedService }) {
+  const { categories, auth, BASE_URL } = useAuth()
+
   const icons = [
     { icon: <Edit className='w-6 h-6' />, styles: 'bg-sky-500' },
     { icon: <Trash className='w-6 h-6' />, styles: 'bg-red-500' }
   ]
   const {
+    id_service,
     service_name: name,
     description, evidence_img,
     evidence_video, category_id: categoryId,
     price
   } = service
-  const { categories } = useAuth()
+
+  const deleteService = async () => {
+    const res = await fetch(`${BASE_URL}/service/delete`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        token: auth?.token
+      },
+      body: JSON.stringify({ id_service })
+    })
+    const data = await res?.json()
+    window.alert(data.message)
+  }
   return (
     <div className='flex flex-col w-96 p-2 bg-red-500 font-medium text-justify rounded-xl overflow-hidden'>
       <div className='flex flex-col bg-white font-medium text-justify rounded-xl'>
@@ -35,9 +50,7 @@ function Service ({ service, setShow, setSelectedService }) {
             </div>
             <div className={`flex items-center ${icons[1].styles} p-1 rounded-lg`}>
               <Button
-                text={icons[1].icon} action={() => {
-                  window.alert('se elimino')
-                }}
+                text={icons[1].icon} action={deleteService}
               />
             </div>
           </div>
