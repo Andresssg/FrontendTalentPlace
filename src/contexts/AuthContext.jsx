@@ -3,7 +3,7 @@ import React, { createContext, useEffect, useState } from 'react'
 export const AuthContext = createContext({})
 
 export function AuthContextProvider ({ children }) {
-  const BASE_URL = 'http://localhost:8000/api/v1'
+  const BASE_URL = 'http://127.0.0.1:8000/api/v1'
   const [auth, setAuth] = useState(null)
   const ROLES = {
     1: 'OFERENTE',
