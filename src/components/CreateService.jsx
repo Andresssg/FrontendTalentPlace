@@ -18,7 +18,7 @@ function CreateService () {
     })
     const data = await res?.json()
     if (res.status !== 201) return window.alert(data?.message)
-    console.log(data.message)
+    window.alert(data.message)
   }
 
   return (

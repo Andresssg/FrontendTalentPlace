@@ -113,7 +113,7 @@ function Profile () {
     <article className='flex flex-col justify-center items-start p-10 gap-y-5 relative md:flex-row'>
       {isOpen &&
         <aside className='flex flex-col items-center w-full rounded-xl p-5 gap-3 text-2xl
-      font-medium bg-slate-100 bg-opacity-90 text-gray-900 fixed z-10 h-screen top-0 lg:w-1/2 lg:relative lg:h-[calc(100vh-150px)]'
+      font-medium bg-slate-100 bg-opacity-90 text-gray-900 fixed z-10 h-screen top-0 lg:w-1/2 lg:sticky lg:h-[calc(100vh-150px)]'
         >
           <button className='lg:hidden rounded-full h-16 w-16 fixed top-0 left-0 text-red-500 text-4xl' onClick={() => setIsOpen(!isOpen)}>X</button>
           <h1 className='text-3xl font-bold uppercase'>{user.name} {user.lastname}</h1>
@@ -133,7 +133,13 @@ function Profile () {
       <section className={`flex flex-col flex-wrap justify-center items-center w-full gap-y-6 md:flex-row md:justify-evenly ${isOpen && 'blur-sm'} lg:blur-none`}>
         {show === 'services' &&
           (services.length
-            ? services.map((service, i) => <Service key={`service-${i}`} service={service} setShow={setShow} setSelectedService={setSelectedService} />)
+            ? services.map((service, i) =>
+              <Service
+                key={`service-${i}`} service={ROLES[auth?.user?.rol] === ROLES[2]
+                  ? { ...service.service, fullname: service.full_name, date: service.request_date }
+                  : service} setShow={setShow} setSelectedService={setSelectedService}
+              />
+            )
             : user.rol === 1 ? <h2>No tienes servicios, empieza por crear uno</h2> : <h2>No has contratado ningún servicio.</h2>)}
         {show === 'change' && <ChangePassword />}
         {show === 'create' && <CreateService />}
