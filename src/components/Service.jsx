@@ -4,7 +4,7 @@ import Edit from '../icons/Edit'
 import Trash from '../icons/Trash'
 
 function Service ({ service, setShow, setSelectedService }) {
-  const { categories, auth, BASE_URL } = useAuth()
+  const { categories, auth, BASE_URL, ROLES } = useAuth()
 
   const icons = [
     { icon: <Edit className='w-6 h-6' />, styles: 'bg-sky-500' },
@@ -33,28 +33,43 @@ function Service ({ service, setShow, setSelectedService }) {
   return (
     <div className='flex flex-col w-96 p-2 bg-red-500 font-medium text-justify rounded-xl overflow-hidden'>
       <div className='flex flex-col bg-white font-medium text-justify rounded-xl'>
-        <h3 className='w-1/2 text-center text-white bg-red-500 rounded-br-xl rounded-tl-xl p-2 shadow-inner-up'>{name}</h3>
+        <div className='flex justify-between items-center w-full'>
+          <h3 className='w-1/2 text-center text-white bg-red-500 rounded-br-xl rounded-tl-xl p-2 shadow-inner-up'>{name}</h3>
+          <div className='flex justify-evenly items-center p-2'>
+            {ROLES[auth?.user?.rol] === ROLES[2] &&
+              <p className='text-sm'>Solicitado en: {service.date}</p>}
+          </div>
+        </div>
         <img src={evidence_img} alt='Imagen de evidencia del servicio' className='w-full h-60 object-contain p-2' />
-        <p className='p-2 '>Descripción: {description}</p>
-        <p className='p-2 '>Precio: {price}</p>
-        {evidence_video && <a href={evidence_video} target='_blank' rel='noreferrer' className='p-2 text-justify hover:text-red-500'>Video de referencia</a>}
+        <details className='p-2 border-2'>
+          <summary>Click para ver la información del servicio</summary>
+          <p className='p-2 '>Descripción: {description}</p>
+          <p className='p-2 '>Precio: {price}</p>
+          {evidence_video && <a href={evidence_video} target='_blank' rel='noreferrer' className='p-2 text-justify hover:text-red-500'>Video de referencia</a>}
+        </details>
         <div className='flex justify-between items-center'>
           <div className='flex justify-evenly items-center w-full p-2'>
-            <div className={`flex items-center ${icons[0].styles} p-1 rounded-lg`}>
-              <Button
-                text={icons[0].icon} action={() => {
-                  setShow('edit')
-                  setSelectedService(service)
-                }}
-              />
-            </div>
-            <div className={`flex items-center ${icons[1].styles} p-1 rounded-lg`}>
-              <Button
-                text={icons[1].icon} action={deleteService}
-              />
-            </div>
+            {ROLES[auth?.user?.rol] !== ROLES[2]
+              ? (
+                <>
+                  <div className={`flex items-center ${icons[0].styles} p-1 rounded-lg`}>
+                    <Button
+                      text={icons[0].icon} action={() => {
+                        setShow('edit')
+                        setSelectedService(service)
+                      }}
+                    />
+                  </div>
+                  <div className={`flex items-center ${icons[1].styles} p-1 rounded-lg`}>
+                    <Button
+                      text={icons[1].icon} action={deleteService}
+                    />
+                  </div>
+                </>
+                )
+              : <p>Oferente: {service.fullname}</p>}
           </div>
-          <h3 className='w-1/2 bg-red-500 text-white rounded-tl-xl rounded-br-xl p-2 self-end text-center shadow-inner-down'>{categories[categoryId - 1]}</h3>
+          <h3 className='w-1/2 bg-red-500 text-white rounded-tl-xl rounded-br-xl p-2 text-center shadow-inner-down'>{categories[categoryId - 1]}</h3>
         </div>
       </div>
 
