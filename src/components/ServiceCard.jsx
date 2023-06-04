@@ -4,7 +4,7 @@ import Cart from '../icons/Cart'
 import { Link } from 'react-router-dom'
 
 function ServiceCard ({ service }) {
-  const { categories, ROLES, auth, BASE_URL, token } = useAuth()
+  const { categories, ROLES, auth, BASE_URL } = useAuth()
   const icons = [
     { icon: <Cart className='w-6 h-6' />, styles: 'bg-yellow-400' }
   ]
@@ -21,13 +21,16 @@ function ServiceCard ({ service }) {
       email: auth?.user?.email,
       service_id: id_service
     }
-    const res = await fetch(`${BASE_URL}/services/hire`, {
+    const res = await fetch(`${BASE_URL}/service/hire`, {
       method: 'POST',
-      headers: { token },
+      headers: {
+        'Content-type': 'application/json',
+        token: auth?.token
+      },
       body: JSON.stringify(payload)
     })
     const data = await res.json()
-    console.log(data)
+    if (res.status !== 200 || res.status !== 201) { return console.log(data) }
     window.alert('servicio contratado')
   }
   return (
@@ -41,12 +44,18 @@ function ServiceCard ({ service }) {
         <div className='flex justify-between items-center'>
           <div className='flex justify-evenly items-center w-full p-2'>
             <div className={`flex items-center ${icons[0].styles} p-1 rounded-lg`}>
-              {auth && auth?.user?.rol !== ROLES[1]
-                ? <Button
-                    className='flex gap-3 px-2'
-                    icon={icons[0].icon}
-                    text='Contratar servicio' action={hireService}
-                  />
+              {auth
+                ? (
+                    ROLES[auth?.user?.rol] !== ROLES[1]
+                      ? <Button
+                          className='flex gap-3 px-2'
+                          icon={icons[0].icon}
+                          text='Contratar servicio' action={hireService}
+                        />
+                      : <Button
+                          className='flex gap-3 px-2'
+                          text={`Como ${ROLES[1]} no puedes contratar servicios`} action={() => window.alert(`Acción no permitida como ${ROLES[1]}`)}
+                        />)
                 : <Link to='/login'>Inicia sesión para contratar</Link>}
             </div>
           </div>
