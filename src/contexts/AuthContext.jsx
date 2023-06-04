@@ -6,16 +6,30 @@ export function AuthContextProvider ({ children }) {
   const BASE_URL = 'http://localhost:8000/api/v1'
   const [auth, setAuth] = useState(null)
   const ROLES = {
-    1: 'OFERTANTE',
+    1: 'OFERENTE',
     2: 'SOLICITANTE',
     3: 'ADMIN'
   }
+  const [categories, setCategories] = useState([])
 
   useEffect(() => {
     const token = window.localStorage.getItem('token')
     const user = JSON.parse(window.localStorage.getItem('user'))
     user && token ? setAuth({ token, user }) : setAuth(null)
   }, [])
+
+  useEffect(() => {
+    getCategories()
+  }, [])
+
+  const getCategories = async () => {
+    const res = await fetch(`${BASE_URL}/categories`, {
+      method: 'GET'
+    })
+    const data = await res?.json()
+    const categoryNames = data.map(element => element?.category_name)
+    setCategories(categoryNames)
+  }
 
   const login = (data) => {
     const { token, user } = data
@@ -30,7 +44,7 @@ export function AuthContextProvider ({ children }) {
   }
 
   return (
-    <AuthContext.Provider value={{ auth, setAuth, logout, login, BASE_URL, ROLES }}>
+    <AuthContext.Provider value={{ auth, setAuth, logout, login, BASE_URL, ROLES, categories }}>
       {children}
     </AuthContext.Provider>
   )
