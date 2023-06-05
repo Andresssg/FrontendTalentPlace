@@ -8,6 +8,8 @@ function CreateService () {
     e.preventDefault()
     const form = new FormData(e.target)
     form.append('email', user.email)
+    if (form.get('evidence_img')?.size === 0) form.delete('evidence_img')
+
     const res = await fetch(`${BASE_URL}/service/create`, {
       method: 'POST',
       headers: {
