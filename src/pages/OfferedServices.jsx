@@ -6,7 +6,7 @@ import ServiceCard from '../components/ServiceCard'
 function OfferedServices () {
   const { categories, BASE_URL } = useAuth()
   const [services, setServices] = useState([])
-  const [filter, setFilter] = useState()
+  const [filter, setFilter] = useState('ALL')
   useEffect(() => {
     getServices()
   }, [])
