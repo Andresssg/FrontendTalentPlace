@@ -31,7 +31,7 @@ function EditService ({ service }) {
   const handleSubmit = async (e) => {
     e.preventDefault()
     const form = verifyFields(e.target)
-    if (form.get('id_service')) return window.alert('No se puede editar porque no se ha seleccionado un servicio')
+    if (!form.get('id_service')) return window.alert('No se puede editar porque no se ha seleccionado un servicio')
     if (Array.from(form).length <= 1) return window.alert('No se ha modificado nada')
     const res = await fetch(`${BASE_URL}/service/modify`, {
       method: 'PUT',
