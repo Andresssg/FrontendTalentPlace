@@ -4,7 +4,6 @@ function CategoryCard ({ icon, category, color }) {
       className='flex flex-col justify-center
     items-center p-8 gap-10 cursor-pointer
     lg:p-10 border-4 border-gray-200 rounded-xl'
-      onClick={() => { window.alert(`La categoria ${category} fue seleccionada`) }}
     >
       <div className={`flex w-36 h-36 bg-${color}-500 rounded-full items-center justify-center`}>
         <img className='h-full w-full object-contain' src={icon} alt='icono categoria' />

@@ -30,8 +30,8 @@ function ServiceCard ({ service }) {
       body: JSON.stringify(payload)
     })
     const data = await res.json()
-    if (res.status !== 200 || res.status !== 201) { return window.alert(data.message) }
-    window.alert('servicio contratado')
+    if (res.status !== 201) { return window.alert('Error al contratar el servicio') }
+    window.alert('Servicio contratado')
   }
   return (
     <div className='flex flex-col w-96 p-2 bg-red-500 font-medium text-justify rounded-xl overflow-hidden'>
