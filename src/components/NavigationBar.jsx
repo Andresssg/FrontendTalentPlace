@@ -26,7 +26,9 @@ function NavigationBar () {
         auth
           ? <div className='flex justify-end items-center gap-10'>
             <li className='hover:bg-white hover:text-black'>
-              <Link to={`/profile/${auth?.user?.username}`}>{auth?.user?.username}</Link>
+              {auth?.user?.rol === 3
+                ? <Link to={`/admin/${auth?.user?.username}`}>{auth?.user?.username}</Link>
+                : <Link to={`/profile/${auth?.user?.username}`}>{auth?.user?.username}</Link>}
             </li>
             <li className='hover:bg-red-500 hover:text-black p-2 rounded-xl'>
               <Button text='Salir' action={logout} />

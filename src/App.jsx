@@ -7,6 +7,7 @@ import NavigationBar from './components/NavigationBar'
 import ProtectedRoute from './components/ProtectedRoute'
 import Profile from './pages/Profile'
 import OfferedServices from './pages/OfferedServices'
+import AdminDashboard from './pages/AdminDashboard'
 
 function App () {
   return (
@@ -20,7 +21,10 @@ function App () {
         <Route path='/signup' element={<Register />} />
         <Route path='/offered' element={<OfferedServices />} />
         {/* TODO: Protected routes */}
-        <Route element={<ProtectedRoute />}>
+        <Route element={<ProtectedRoute allowedRoles={[3]} />}>
+          <Route path='/admin/:username' element={<AdminDashboard />} />
+        </Route>
+        <Route element={<ProtectedRoute allowedRoles={[1, 2]} />}>
           <Route path='/profile/:username' element={<Profile />} />
         </Route>
         <Route path='*' element={<NotFound />} />

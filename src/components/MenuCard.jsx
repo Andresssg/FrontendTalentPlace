@@ -2,13 +2,17 @@ import Home from '../icons/Home'
 import Shield from '../icons/Shield'
 import Add from '../icons/Add'
 import Edit from '../icons/Edit'
+import People from '../icons/People'
+import Check from '../icons/Check'
 
 function MenuCard ({ text, action, iconIndex }) {
   const icons = [
     { icon: <Home className='w-10 h-10' />, styles: 'bg-red-500' },
     { icon: <Shield className='w-10 h-10' />, styles: 'bg-yellow-500' },
     { icon: <Add className='w-10 h-10' />, styles: 'bg-emerald-500' },
-    { icon: <Edit className='w-10 h-10' />, styles: 'bg-sky-500' }
+    { icon: <Edit className='w-10 h-10' />, styles: 'bg-sky-500' },
+    { icon: <Check className='w-10 h-10' />, styles: 'bg-emerald-500' },
+    { icon: <People className='w-10 h-10' />, styles: 'bg-purple-500' }
   ]
   return (
     <div
