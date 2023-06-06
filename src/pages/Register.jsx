@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import hat from '../assets/hat.svg'
 import { useState } from 'react'
 import useAuth from '../hooks/useAuth'
@@ -48,7 +48,7 @@ function Register () {
         {/* eslint-disable-next-line react/self-closing-comp */}
         {/* <div class='absolute -bottom-8 left-20 w-72 h-72 bg-red-300 rounded-full mix-blend-multiply filter blur-3xl opacity-70 animate-blob animation-delay-4000'></div> */}
         <h1 className='text-5xl lg:text-6xl'>Registrate para comenzar<br />esta experiencia</h1>
-        <p className='text-xl lg:text-3xl'>Si tienes una cuenta <span className='text-red-500'>Inicia sesión</span></p>
+        <p className='text-xl lg:text-3xl'>Si tienes una cuenta <Link to='login' className='text-red-500'>Inicia sesión</Link></p>
       </section>
       <img src={hat} alt='hat image' className='w-2/3 lg:w-1/3' />
       <form method='post' onSubmit={handleSubmit} className='flex flex-col justify-evenly w-[35rem] h-[52rem] p-5 bg-red-600 rounded-xl'>

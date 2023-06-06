@@ -1,4 +1,7 @@
+import useAuth from '../hooks/useAuth'
+
 function Table ({ info }) {
+  const { ROLES } = useAuth()
   if (info.length === 0) return <h1>No information</h1>
   const headers = Object.keys(info[0])
   return (
@@ -9,10 +12,14 @@ function Table ({ info }) {
         </tr>
       </thead>
       <tbody>
-        {info.map((data, i) => (
-          <tr key={i} className={`${i % 2 === 0 && 'bg-slate-400 border-2 border-black'}`}>
-            {Object.values(data).map((element, i) => <td key={i} className='p-2'>{element}</td>)}
-          </tr>))}
+        {info.map((data, i) => {
+          const values = Object.values(data)
+          return (
+            <tr key={i} className={`${i % 2 === 0 && 'bg-slate-400 border-2 border-black'}`}>
+              {values.map((element, i) => <td key={i} className='p-2'>{i === values.length - 1 ? ROLES[element] : element}</td>)}
+            </tr>
+          )
+        })}
       </tbody>
     </table>
   )
