@@ -1,6 +1,6 @@
 import useAuth from '../hooks/useAuth'
 
-function CreateService () {
+function CreateService ({ setShow }) {
   const { auth, BASE_URL, categories } = useAuth()
   const { user, token } = auth
 
@@ -20,6 +20,9 @@ function CreateService () {
     const data = await res?.json()
     if (res.status !== 201) return window.alert(data?.message)
     window.alert(data.message)
+    setTimeout(() => {
+      setShow()
+    }, 500)
   }
 
   return (

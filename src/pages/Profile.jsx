@@ -125,7 +125,7 @@ function Profile () {
             <MenuCard text='Cambiar contraseña' action={showChangePassword} iconIndex={1} />
             {user.rol === 1 && <>
               <MenuCard text='Nuevo servicio' action={showCreateService} iconIndex={2} />
-              <MenuCard text='Editar servicio' action={showEditServices} iconIndex={3} />
+              {/* <MenuCard text='Editar servicio' action={showEditServices} iconIndex={3} /> */}
               {/* eslint-disable-next-line react/jsx-closing-tag-location */}
             </>}
           </div>
@@ -145,8 +145,8 @@ function Profile () {
             )
             : user.rol === 1 ? <h2>No tienes servicios, empieza por crear uno</h2> : <h2>No has contratado ningún servicio.</h2>)}
         {show === 'change' && <ChangePassword />}
-        {show === 'create' && <CreateService />}
-        {show === 'edit' && <EditService service={selectedService} />}
+        {show === 'create' && <CreateService setShow={() => { setShow('services') }} />}
+        {show === 'edit' && <EditService service={selectedService} setShow={() => { setShow('services') }} />}
       </section>
       <button
         className={`lg:hidden rounded-full h-16 w-16 fixed bottom-4 right-4 p-4 flex flex-col items-center justify-center gap-2 hover:bg-red-500 ${isOpen && 'hidden'}`}

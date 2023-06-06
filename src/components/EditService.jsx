@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import useAuth from '../hooks/useAuth'
 
-function EditService ({ service }) {
+function EditService ({ service, setShow }) {
   const { auth, BASE_URL, categories } = useAuth()
   const { token } = auth
   const {
@@ -43,6 +43,9 @@ function EditService ({ service }) {
     const data = await res?.json()
     if (res.status !== 201) return window.alert(data?.message)
     window.alert(data.message)
+    setTimeout(() => {
+      setShow()
+    }, 500)
   }
 
   return (
