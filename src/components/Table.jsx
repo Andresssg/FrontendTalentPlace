@@ -16,7 +16,7 @@ function Table ({ info }) {
           const values = Object.values(data)
           return (
             <tr key={i} className={`${i % 2 === 0 && 'bg-slate-400 border-2 border-black'}`}>
-              {values.map((element, i) => <td key={i} className='p-2'>{i === values.length - 1 ? ROLES[element] : element}</td>)}
+              {values.map((element, i) => <td key={i} className='p-2'>{headers[i] === 'rol' ? ROLES[element] : element}</td>)}
             </tr>
           )
         })}
