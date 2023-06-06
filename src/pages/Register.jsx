@@ -45,10 +45,8 @@ function Register () {
         <div className='absolute top-0 -left-4 w-72 h-72 bg-red-300 rounded-full mix-blend-multiply filter blur-3xl opacity-70 animate-blob'></div>
         {/* eslint-disable-next-line react/self-closing-comp */}
         <div className='absolute top-0 md:left-60 w-72 h-72 bg-yellow-300 rounded-full mix-blend-multiply filter blur-3xl opacity-70 animate-blob animation-delay-2000'></div>
-        {/* eslint-disable-next-line react/self-closing-comp */}
-        {/* <div class='absolute -bottom-8 left-20 w-72 h-72 bg-red-300 rounded-full mix-blend-multiply filter blur-3xl opacity-70 animate-blob animation-delay-4000'></div> */}
-        <h1 className='text-5xl lg:text-6xl'>Registrate para comenzar<br />esta experiencia</h1>
-        <p className='text-xl lg:text-3xl'>Si tienes una cuenta <Link to='login' className='text-red-500'>Inicia sesión</Link></p>
+        <h1 className='relative text-5xl lg:text-6xl z-10'>Registrate para comenzar<br />esta experiencia</h1>
+        <p className='relative text-xl lg:text-3xl z-10'>Si tienes una cuenta <Link to='/login' className='text-red-500'>Inicia sesión</Link></p>
       </section>
       <img src={hat} alt='hat image' className='w-2/3 lg:w-1/3' />
       <form method='post' onSubmit={handleSubmit} className='flex flex-col justify-evenly w-[35rem] h-[52rem] p-5 bg-red-600 rounded-xl'>

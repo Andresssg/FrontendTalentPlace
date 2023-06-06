@@ -17,7 +17,7 @@ function NavigationBar () {
       </li>
       {!auth &&
         <li className='p-2 rounded-xl hover:bg-white hover:text-black'>
-          <Link to='/signup'>Signup</Link>
+          <Link to='/signup'>Registrarse</Link>
         </li>}
       {/* <li className='hover:text-white'>
         <Link to='/dashboard'>Dashboard</Link>
