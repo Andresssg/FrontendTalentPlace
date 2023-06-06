@@ -1,11 +1,12 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { useLocation } from 'react-router'
 import useAuth from '../hooks/useAuth'
+import { Link } from 'react-router-dom'
 
 const Checkout = () => {
   const { auth, BASE_URL } = useAuth()
   const location = useLocation()
-  const { name, price } = location.state
+  const { name, price, id_service } = location.state
   const [numeroTarjeta, setNumeroTarjeta] = useState('')
   const [nombreTitular, setNombreTitular] = useState('')
   const [fechaExpiracion, setFechaExpiracion] = useState('')
@@ -20,6 +21,8 @@ const Checkout = () => {
       window.alert('los campos no pueden estar incompletos')
     }
     const payload = {
+      email: auth?.user?.email,
+      service_id: id_service,
       num_card: numeroTarjeta.slice(-4),
       service_name: name,
       service_price: price
@@ -33,7 +36,7 @@ const Checkout = () => {
       body: JSON.stringify(payload)
     })
     const data = await res.json()
-    if (res.status !== 201) { return window.alert('Error al contratar el servicio') }
+    if (res.status !== 201) { return window.alert(data.message) }
     setResumenCompra({ price, name })
     window.alert(data.message)
   }
@@ -104,11 +107,13 @@ const Checkout = () => {
           </button>
         </div>
         {resumenCompra && (
-          <div className='font-bold'>
+          <div className='flex flex-col justify-center font-bold'>
             <h3 className='text-lg mb-2'>Resumen de la compra</h3>
             <p>Nombre del servicio: <span className='font-normal'>{resumenCompra.name}</span></p>
             <p>Precio: <span className='font-normal'>{resumenCompra.price}</span></p>
             <p className='font-medium'>La factura electronica fue enviada al correo electronico</p>
+            <hr className='h-2' />
+            <Link to='/offered' className='text-red-500'>Click para volver a los servicios ofertados</Link>
           </div>
         )}
         <div />
