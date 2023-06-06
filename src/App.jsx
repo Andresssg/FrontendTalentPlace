@@ -8,6 +8,7 @@ import ProtectedRoute from './components/ProtectedRoute'
 import Profile from './pages/Profile'
 import OfferedServices from './pages/OfferedServices'
 import AdminDashboard from './pages/AdminDashboard'
+import Checkout from './pages/Checkout'
 
 function App () {
   return (
@@ -26,6 +27,9 @@ function App () {
         </Route>
         <Route element={<ProtectedRoute allowedRoles={[1, 2]} />}>
           <Route path='/profile/:username' element={<Profile />} />
+        </Route>
+        <Route element={<ProtectedRoute allowedRoles={[2]} />}>
+          <Route path='/checkout/:id' element={<Checkout />} />
         </Route>
         <Route path='*' element={<NotFound />} />
       </Routes>
