@@ -3,7 +3,7 @@ import React, { createContext, useEffect, useState } from 'react'
 export const AuthContext = createContext({})
 
 export function AuthContextProvider ({ children }) {
-  const BASE_URL = 'http://127.0.0.1:8000/api/v1'
+  const BASE_URL = 'http://localhost:8000/api/v1'
   const [auth, setAuth] = useState(null)
   const ROLES = {
     1: 'OFERENTE',
@@ -15,7 +15,9 @@ export function AuthContextProvider ({ children }) {
   useEffect(() => {
     const token = window.localStorage.getItem('token')
     const user = JSON.parse(window.localStorage.getItem('user'))
-    user && token ? setAuth({ token, user }) : setAuth(null)
+    if (user && token) {
+      setAuth({ token, user })
+    }
   }, [])
 
   useEffect(() => {

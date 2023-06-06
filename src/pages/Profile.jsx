@@ -133,12 +133,15 @@ function Profile () {
       <section className={`flex flex-col flex-wrap justify-center items-center w-full gap-y-6 md:flex-row md:justify-evenly ${isOpen && 'blur-sm'} lg:blur-none`}>
         {show === 'services' &&
           (services.length
-            ? services.map((service, i) =>
-              <Service
-                key={`service-${i}`} service={ROLES[auth?.user?.rol] === ROLES[2]
-                  ? { ...service.service, fullname: service.full_name, date: service.request_date }
-                  : service} setShow={setShow} setSelectedService={setSelectedService}
-              />
+            ? services.map((service, i) => {
+              return (
+                <Service
+                  key={`service-${i}`} service={ROLES[auth?.user?.rol] === ROLES[2]
+                    ? { ...service.service, fullname: service.full_name, date: service.request_date, id_hired_service: service.id_hired_service, rating: service.rating }
+                    : service} setShow={setShow} setSelectedService={setSelectedService}
+                />
+              )
+            }
             )
             : user.rol === 1 ? <h2>No tienes servicios, empieza por crear uno</h2> : <h2>No has contratado ningún servicio.</h2>)}
         {show === 'change' && <ChangePassword />}

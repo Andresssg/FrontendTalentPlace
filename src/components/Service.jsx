@@ -2,6 +2,7 @@ import Button from '../components/Button'
 import useAuth from '../hooks/useAuth'
 import Edit from '../icons/Edit'
 import Trash from '../icons/Trash'
+import StarRating from './StarRating'
 
 function Service ({ service, setShow, setSelectedService }) {
   const { categories, auth, BASE_URL, ROLES } = useAuth()
@@ -15,7 +16,7 @@ function Service ({ service, setShow, setSelectedService }) {
     service_name: name,
     description, evidence_img,
     evidence_video, category_id: categoryId,
-    price
+    price, rating, id_hired_service
   } = service
 
   const deleteService = async () => {
@@ -47,6 +48,8 @@ function Service ({ service, setShow, setSelectedService }) {
           <p className='p-2 '>Precio: {price}</p>
           {evidence_video && <a href={evidence_video} target='_blank' rel='noreferrer' className='p-2 text-justify hover:text-red-500'>Video de referencia</a>}
         </details>
+        {ROLES[auth?.user?.rol] === ROLES[2] &&
+          <StarRating sendRating rating={rating} idHiredService={id_hired_service} />}
         <div className='flex justify-between items-center'>
           <div className='flex justify-evenly items-center w-full p-2'>
             {ROLES[auth?.user?.rol] !== ROLES[2]
