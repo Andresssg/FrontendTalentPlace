@@ -3,6 +3,7 @@ import useAuth from '../hooks/useAuth'
 import { useEffect, useState } from 'react'
 import MenuCard from '../components/MenuCard'
 import Table from '../components/Table'
+import { toast } from 'react-toastify'
 
 function AdminDashboard () {
   const { username } = useParams()
@@ -66,7 +67,7 @@ function AdminDashboard () {
       }
     })
     const data = await res?.json()
-    if (res.status !== 200) return window.alert('Error al obtener los usuarios')
+    if (res.status !== 200) return toast.error('Error al obtener los usuarios')
     setUsers(data)
   }
 
@@ -78,7 +79,7 @@ function AdminDashboard () {
       }
     })
     const data = await res?.json()
-    if (res.status !== 200) return window.alert('Error al obtener los servicios contratados')
+    if (res.status !== 200) return toast.error('Error al obtener los servicios contratados')
     setServices(data)
   }
 

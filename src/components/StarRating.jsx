@@ -3,6 +3,7 @@ import Star from '../icons/Star'
 import StarFill from '../icons/StarFill'
 import Button from './Button'
 import useAuth from '../hooks/useAuth'
+import { toast } from 'react-toastify'
 
 const StarRating = ({ rating = 0, sendRating = false, idHiredService }) => {
   const { auth, BASE_URL } = useAuth()
@@ -31,8 +32,8 @@ const StarRating = ({ rating = 0, sendRating = false, idHiredService }) => {
     })
 
     const data = await res.json()
-    if (res.status !== 200) return window.alert(data.message)
-    window.alert(data.message)
+    if (res.status !== 200) return toast.error(data.message)
+    toast.info(data.message)
   }
 
   return (

@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import useAuth from '../hooks/useAuth'
+import { toast } from 'react-toastify'
 
 function EditService ({ service, setShow }) {
   const { auth, BASE_URL, categories } = useAuth()
@@ -14,6 +15,11 @@ function EditService ({ service, setShow }) {
   const [desc, setDesc] = useState(description || '')
   const [category, setCategory] = useState(categories[categoryId - 1] || 'TRADUCTORES')
   const [servicePrice, setServicePrice] = useState(price || price)
+  const promiseMessages = {
+    pending: 'Guardando cambios del servicio',
+    success: 'Cambios guardados',
+    error: 'Hubo un error! 🤯'
+  }
 
   const verifyFields = (form) => {
     const oldFormData = new FormData(form)
@@ -31,18 +37,18 @@ function EditService ({ service, setShow }) {
   const handleSubmit = async (e) => {
     e.preventDefault()
     const form = verifyFields(e.target)
-    if (!form.get('id_service')) return window.alert('No se puede editar porque no se ha seleccionado un servicio')
-    if (Array.from(form).length <= 1) return window.alert('No se ha modificado nada')
-    const res = await fetch(`${BASE_URL}/service/modify`, {
+    if (!form.get('id_service')) return toast.warning('No se puede editar porque no se ha seleccionado un servicio')
+    if (Array.from(form).length <= 1) return toast.warning('No se ha modificado nada')
+    const res = await toast.promise(fetch(`${BASE_URL}/service/modify`, {
       method: 'PUT',
       headers: {
         token
       },
       body: form
-    })
+    }), promiseMessages)
     const data = await res?.json()
-    if (res.status !== 201) return window.alert(data?.message)
-    window.alert(data.message)
+    if (res.status !== 201) return toast.error(data?.message)
+    toast.info(data.message)
     setTimeout(() => {
       setShow()
     }, 500)

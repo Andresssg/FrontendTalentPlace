@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import useAuth from '../hooks/useAuth'
+import { toast } from 'react-toastify'
 
 function Login () {
   const { login, BASE_URL } = useAuth()
@@ -13,7 +14,7 @@ function Login () {
   const [email, setEmail] = useState('')
 
   const checkFields = () => {
-    if (!email && !password) { return window.alert('Campos incompletos') }
+    if (!email && !password) { return toast.warning('Campos incompletos') }
   }
 
   const handleSubmit = async (e) => {
@@ -28,7 +29,7 @@ function Login () {
       body: form
     })
     const data = await res?.json()
-    if (res.status !== 200) { return window.alert(data.message) }
+    if (res.status !== 200) { return toast.error(data.message) }
     login(data)
     navigate(from, { replace: true })
   }

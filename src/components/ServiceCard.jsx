@@ -3,6 +3,7 @@ import useAuth from '../hooks/useAuth'
 import Cart from '../icons/Cart'
 import { Link } from 'react-router-dom'
 import StarRating from './StarRating'
+import { toast } from 'react-toastify'
 
 function ServiceCard ({ service }) {
   const { categories, ROLES, auth } = useAuth()
@@ -49,7 +50,7 @@ function ServiceCard ({ service }) {
                         )
                       : <Button
                           className='flex gap-3 px-2'
-                          text={`Como ${ROLES[1]} no puedes contratar servicios`} action={() => window.alert(`Acción no permitida como ${ROLES[1]}`)}
+                          text={`Como ${ROLES[1]} no puedes contratar servicios`} action={() => toast.warning(`Acción no permitida como ${ROLES[1]}`)}
                         />)
                 : <Link to='/login'>Inicia sesión para contratar</Link>}
             </div>

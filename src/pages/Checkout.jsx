@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useLocation } from 'react-router'
 import useAuth from '../hooks/useAuth'
 import { Link } from 'react-router-dom'
+import { toast } from 'react-toastify'
 
 const Checkout = () => {
   const { auth, BASE_URL } = useAuth()
@@ -13,12 +14,18 @@ const Checkout = () => {
   const [codigoCVV, setCodigoCVV] = useState('')
   const [resumenCompra, setResumenCompra] = useState(null)
 
+  const promiseMessages = {
+    pending: 'Contratando servicio...',
+    success: 'Servicio contratado',
+    error: 'Hubo un error! 🤯'
+  }
+
   const hireService = async () => {
     if (!/^\d{16}$/.test(numeroTarjeta)) {
-      return window.alert('La tarjeta no puede contener letras y solo debe tener 16 dígitos')
+      return toast.warning('La tarjeta no puede contener letras y solo debe tener 16 dígitos')
     }
     if (!(nombreTitular && fechaExpiracion && codigoCVV)) {
-      window.alert('los campos no pueden estar incompletos')
+      toast.error('los campos no pueden estar incompletos')
     }
     const payload = {
       email: auth?.user?.email,
@@ -27,18 +34,18 @@ const Checkout = () => {
       service_name: name,
       service_price: price
     }
-    const res = await fetch(`${BASE_URL}/service/hire`, {
+    const res = await toast.promise(fetch(`${BASE_URL}/service/hire`, {
       method: 'POST',
       headers: {
         'Content-type': 'application/json',
         token: auth?.token
       },
       body: JSON.stringify(payload)
-    })
+    }), promiseMessages)
     const data = await res.json()
-    if (res.status !== 201) { return window.alert(data.message) }
+    if (res.status !== 201) { return toast.error(data.message) }
     setResumenCompra({ price, name })
-    window.alert(data.message)
+    toast.info(data.message)
   }
 
   return (

@@ -2,6 +2,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import hat from '../assets/hat.svg'
 import { useState } from 'react'
 import useAuth from '../hooks/useAuth'
+import { toast } from 'react-toastify'
 
 function Register () {
   const [password, setPassword] = useState('')
@@ -16,7 +17,7 @@ function Register () {
   const handleSubmit = async (e) => {
     e.preventDefault()
     if (password !== confirmPassword) {
-      return window.alert('Las contraseñas deben coincidir, intente nuevamente')
+      return toast.warning('Las contraseñas deben coincidir, intente nuevamente')
     }
     const form = new FormData(e.target)
     const res = await fetch(`${BASE_URL}/user/register`, {
@@ -24,8 +25,8 @@ function Register () {
       body: form
     })
     const data = await res?.json()
-    if (res.status !== 201) { return window.alert(JSON.stringify(data)) }
-    window.alert(`Usuario ${data.username} creado exitosamente.`)
+    if (res.status !== 201) { return toast.error(JSON.stringify(data)) }
+    toast.info(`Usuario ${data.username} creado exitosamente.`)
     return navigate('/')
   }
 

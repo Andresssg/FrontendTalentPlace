@@ -1,29 +1,35 @@
 import { useState } from 'react'
 import useAuth from '../hooks/useAuth'
+import { toast } from 'react-toastify'
 
 function ChangePassword () {
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
   const { auth, BASE_URL } = useAuth()
   const { user, token } = auth
+  const promiseMessages = {
+    pending: 'Guardando contraseña',
+    success: 'Contraseña guardada',
+    error: 'Hubo un error! 🤯'
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault()
     if (password !== confirmPassword) {
-      return window.alert('Las contraseñas deben coincidir, intente nuevamente')
+      return toast.warning('Las contraseñas deben coincidir, intente nuevamente')
     }
     const form = new FormData(e.target)
     form.append('email', user.email)
-    const res = await fetch(`${BASE_URL}/user/changepassword`, {
+    const res = await toast.promise(fetch(`${BASE_URL}/user/changepassword`, {
       method: 'PUT',
       headers: {
         token
       },
       body: form
-    })
+    }), promiseMessages)
     const data = await res?.json()
-    if (res.status !== 200) return window.alert(data?.message)
-    window.alert(data.message)
+    if (res.status !== 200) return toast.error(data?.message)
+    toast.info(data.message)
     setPassword('')
     setConfirmPassword('')
   }

@@ -9,6 +9,8 @@ import Profile from './pages/Profile'
 import OfferedServices from './pages/OfferedServices'
 import AdminDashboard from './pages/AdminDashboard'
 import Checkout from './pages/Checkout'
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 function App () {
   return (
@@ -33,6 +35,7 @@ function App () {
         </Route>
         <Route path='*' element={<NotFound />} />
       </Routes>
+      <ToastContainer />
     </BrowserRouter>
   )
 }

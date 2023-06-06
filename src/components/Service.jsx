@@ -1,3 +1,4 @@
+import { toast } from 'react-toastify'
 import Button from '../components/Button'
 import useAuth from '../hooks/useAuth'
 import Edit from '../icons/Edit'
@@ -19,17 +20,23 @@ function Service ({ service, setShow, setSelectedService }) {
     price, rating, id_hired_service
   } = service
 
+  const promiseMessages = {
+    pending: 'Borrando servicio',
+    success: 'Servicio borrado',
+    error: 'Hubo un error! 🤯'
+  }
+
   const deleteService = async () => {
-    const res = await fetch(`${BASE_URL}/service/delete`, {
+    const res = await toast.promise(fetch(`${BASE_URL}/service/delete`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
         token: auth?.token
       },
       body: JSON.stringify({ id_service })
-    })
+    }), promiseMessages)
     const data = await res?.json()
-    window.alert(data.message)
+    toast.info(data.message)
   }
   return (
     <div className='flex flex-col w-96 p-2 bg-red-500 font-medium text-justify rounded-xl overflow-hidden'>

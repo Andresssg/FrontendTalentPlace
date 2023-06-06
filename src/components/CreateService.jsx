@@ -1,8 +1,14 @@
+import { toast } from 'react-toastify'
 import useAuth from '../hooks/useAuth'
 
 function CreateService ({ setShow }) {
   const { auth, BASE_URL, categories } = useAuth()
   const { user, token } = auth
+  const promiseMessages = {
+    pending: 'Creando servicio',
+    success: 'Servicio creado',
+    error: 'Hubo un error! 🤯'
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -10,16 +16,16 @@ function CreateService ({ setShow }) {
     form.append('email', user.email)
     if (form.get('evidence_img')?.size === 0) form.delete('evidence_img')
 
-    const res = await fetch(`${BASE_URL}/service/create`, {
+    const res = await toast.promise(fetch(`${BASE_URL}/service/create`, {
       method: 'POST',
       headers: {
         token
       },
       body: form
-    })
+    }), promiseMessages)
     const data = await res?.json()
-    if (res.status !== 201) return window.alert(data?.message)
-    window.alert(data.message)
+    if (res.status !== 201) return toast.error(data?.message)
+    toast.info(data.message)
     setTimeout(() => {
       setShow()
     }, 500)
